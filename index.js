@@ -10,14 +10,12 @@ const loadAllData = () => {
 };
 
 const showAllData = (universeAi) => {
- universeAi.slice(0, 6).forEach((universe) => {
-     console.log(universe)
-     
-     const cardContainer = document.getElementById('show-card');
+    universeAi.slice(0, 6).forEach((universe) => {
+        // console.log(universe);
 
-     const div = document.createElement("div");
-     div.innerHTML = `
-
+        const cardContainer = document.getElementById('show-card');
+        const div = document.createElement("div");
+        div.innerHTML = `
      <div class="card w-96 bg-base-100 shadow mx-auto my-6">
                 <figure class="px-10 pt-10">
                     <img src="https://source.unsplash.com/random/300x200?sig=incrementingIdentifier" alt="image"
@@ -57,7 +55,7 @@ const showAllData = (universeAi) => {
                                     class="btn btn-sm btn-circle absolute right-4 top-4 bg-red-500 border-none">✕</label>
 
                                 <!-- Modal Card Inside -->
-                                <div class="flex justify-between px-8">
+                                <div class="flex justify-between px-8 grid grid-cols-1  lg:grid-cols-2">
 
                                     <div class="card w-96 bg-red-50 shadow mx-auto my-6 border-red-300 border-2">
                                         <h1 class="card-title text-center font-bold text-black pt-4">ChatGPT is an
@@ -125,12 +123,12 @@ const showAllData = (universeAi) => {
 
                 </div>
             </div>
-     
+        
      `;
-     cardContainer.appendChild(div);
+        cardContainer.appendChild(div);
 
- });
-  
+    });
+
 };
 
 loadAllData();
