@@ -28,15 +28,16 @@
         <!-- card section -->
         <div class="card w-96 bg-base-100 shadow mx-auto my-6">
             <figure class="px-10 pt-10">
-              <img src="https://source.unsplash.com/random/300x200?sig=incrementingIdentifier" alt="Shoes" class="rounded-xl" />
+                <img src="https://source.unsplash.com/random/300x200?sig=incrementingIdentifier" alt="Shoes"
+                    class="rounded-xl" />
             </figure>
             <div class="card-body">
-              <h2 class="card-title">Features</h2>
-              <ol class="text-gray-600">
-                <li>Coffee</li>
-                <li>Tea</li>
-                <li>Milk</li>
-              </ol>
+                <h2 class="card-title">Features</h2>
+                <ol class="text-gray-600">
+                    <li>Coffee</li>
+                    <li>Tea</li>
+                    <li>Milk</li>
+                </ol>
             </div>
             <hr class="w-80 mx-auto">
             <div class="flex justify-between px-8 py-3">
@@ -44,9 +45,29 @@
                     <h2 class="card-title">ChatGPT</h2>
                     <p class="text-gray-600"> <i class="fa-regular fa-calendar-days"></i> 11/01/2022</p>
                 </div>
+                
                 <div>
-                    <button class="btn bg-red-50 border-none rounded-full"><i class="fa-solid fa-arrow-right text-red-600"></i></button>
+
+                     <!-- Modal Section -->
+
+                    <!-- The button to open modal -->
+                    <label for="my-modal-3" class="btn bg-red-50 border-none rounded-full"><i
+                        class="fa-solid fa-arrow-right text-red-600"></i></label>
+
+                    <!-- Put this part before tag -->
+                    <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+                    <div class="modal">
+                        <div class="modal-box relative">
+                            <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                            <h3 class="text-lg font-bold">Congratulations random Internet user!</h3>
+                            <p class="py-4">You've been selected for a chance to get one year of subscription to use
+                                Wikipedia for free!</p>
+                        </div>
+                    </div>
+
                 </div>
+               
+
             </div>
         </div>
 
