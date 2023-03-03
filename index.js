@@ -3,30 +3,37 @@ const loadAllData = () => {
         .then((res) => res.json())
         .then((data) => {
             // console.log(data.data.tools[0].name);
-            console.log(data.data);
             showAllData(data.data.tools);
+        });
+    
+    
+        fetch("https://openapi.programming-hero.com/api/ai/tool/01")
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data.data);
+            
         });
 
 };
 
 const showAllData = (universeAi) => {
-    universeAi.slice(0, 6).forEach((universe) => {
-        // console.log(universe);
+    universeAi.slice(0, 12).forEach((universe) => {
+        // console.log(universe.image);
 
         const cardContainer = document.getElementById('show-card');
         const div = document.createElement("div");
         div.innerHTML = `
      <div class="card w-96 bg-base-100 shadow mx-auto my-6">
                 <figure class="px-10 pt-10">
-                    <img src="https://source.unsplash.com/random/300x200?sig=incrementingIdentifier" alt="image"
-                        class="rounded-xl" />
+                <img src="${universe.image}" alt="">
                 </figure>
                 <div class="card-body">
                     <h2 class="card-title text-black">Features</h2>
                     <ol class="text-gray-600 list-decimal list-inside">
-                        <li>Natural language processing</li>
-                        <li>Contextual understanding</li>
-                        <li>Text generation</li>
+                        <li>${universe.features[0]}</li>
+                        <li>${universe.features[1]}</li>
+                        <li>${universe.features[2]}</li>
+                        
                     </ol>
                 </div>
 
@@ -34,8 +41,8 @@ const showAllData = (universeAi) => {
 
                 <div class="flex justify-between px-8 py-3">
                     <div>
-                        <h2 class="card-title text-black">ChatGPT</h2>
-                        <p class="text-gray-600"> <i class="fa-regular fa-calendar-days"></i> 11/01/2022</p>
+                        <h2 class="card-title text-black">${universe.name}</h2>
+                        <p class="text-gray-600"> <i class="fa-regular fa-calendar-days"></i> ${universe.published_in}</p>
                     </div>
 
                     <div>
@@ -128,6 +135,10 @@ const showAllData = (universeAi) => {
         cardContainer.appendChild(div);
 
     });
+
+
+    
+
 
 };
 
