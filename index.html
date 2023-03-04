@@ -23,7 +23,7 @@
         <!-- Project Title Section -->
         <h1 class="text-center text-black font-bold text-4xl mt-8">AI Universe Hub</h1>
         <div class="grid justify-items-center mt-6">
-            <button class="btn bg-red-500 border-none normal-case">Sort By Date</button>
+            <button id="sort-button" class="btn bg-red-500 border-none normal-case">Sort By Date</button>
         </div>
     </header>
 
@@ -57,6 +57,7 @@
 
             <div id="modal-info">
                 <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+
             </div>
 
             
@@ -65,7 +66,7 @@
 
         <!-- See More Button Section -->
         <section>
-            <div id="show-all" class="grid justify-items-center mt-6 hidden">
+            <div onclick="showAllDataTogether()" id="show-all" class="grid justify-items-center mt-6">
                 <button class="btn bg-red-500 border-none normal-case mb-4">See More</button>
             </div>
         </section>

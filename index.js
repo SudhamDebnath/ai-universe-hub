@@ -1,5 +1,6 @@
 const loadAllData = () => {
 
+    // Adding Spinner
     document.getElementById("spinner").classList.remove("hidden");
 
     fetch("https://openapi.programming-hero.com/api/ai/tools")
@@ -9,24 +10,19 @@ const loadAllData = () => {
 
             document.getElementById("spinner").classList.add("hidden");
 
-            showAllData(data.data.tools);
+            showAllData(data.data.tools.slice(0, 6));
         });
 
 };
 
 loadAllData();
 
+// For Main Card Section
 const showAllData = (universeAi) => {
-    universeAi.slice(0, 6).forEach((universe) => {
-       
-        // const showAll = document.getElementById('show-all');
-        // if(universeAi.length > 6) {
-        //     universeAi = universeAi.slice(0, 6);
-        //     showAll.classList.remove('hidden');
-        // }
-        // else {
-        //     showAll.classList.add('hidden');
-        // }
+
+    // showAllData.innerHTML = "";
+
+    universeAi.map((universe) => {
 
         const cardContainer = document.getElementById('show-card');
         const div = document.createElement("div");
@@ -58,10 +54,9 @@ const showAllData = (universeAi) => {
                         <!-- Modal Section -->
 
                         <!-- The button to open modal -->
-                        <label onClick="showDetails('${universe.id}')" for="my-modal-3" class="btn btn-circle bg-red-50 border-none"><i
+                        <label onclick="showDetails('${universe.id}')" for="my-modal-3" class="btn btn-circle bg-red-50 border-none"><i
                                 class="fa-solid fa-arrow-right text-red-600"></i></label>
 
-                        <!-- Modal body -->
 
                     </div>
 
@@ -85,28 +80,36 @@ const showDetails = (id) => {
     fetch(URL)
         .then((res) => res.json())
         .then((data) => {
+            
+            if (data !== null) {
+                const propertyValue = data.property?.nestedProperty ?? "default value";
+                console.log(propertyValue);
+            } else {
+                console.log("Data is null");
+            }
+            
             showSingleData(data.data);
             
-        });
-};
+        })
+        .catch(error => console.error(error));
+    };
 
 // showDetails();
 
+
+// Showing Modal Data Section
 const showSingleData = (modalData) => {
     
-   
-
     const showData = modalData;
 
-    console.log(modalData);
-
-    
+    // console.log(showData.input_output_examples[0].input);
 
     const container = document.getElementById('modal-info');
     const div = document.createElement("div");
     div.classList.add("modal");
     div.innerHTML = `
     
+                <!-- Modal body -->
     
                 <div class="modal-box relative max-w-5xl max-h-5xl">
 
@@ -124,29 +127,29 @@ const showSingleData = (modalData) => {
                                 <div class="grid grid-cols-3 gap-2">
                                     <div
                                         class="bg-base-100 rounded-xl text-center text-green-600 font-bold py-8">
-                                        $10/month Basic</div>
+                                        ${showData?.pricing[0]?.plan} ${showData?.pricing[0]?.price}</div>
                                     <div
                                         class="bg-base-100 rounded-xl text-center text-orange-500 font-bold py-8">
-                                        $50/month Pro</div>
+                                        ${showData?.pricing[1]?.plan} ${showData?.pricing[1]?.price}</div>
                                     <div
                                         class="bg-base-100 rounded-xl text-center text-red-600 font-bold py-8">
-                                        Contact us Enterprise</div>
+                                        ${showData?.pricing[2]?.plan} ${showData?.pricing[2]?.price}</div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-6">
                                     <div>
                                         <h1 class="card-title text-black font-bold">Features</h1>
                                         <ol class="text-gray-600 list-disc list-inside px-auto">
-                                            <li>Customizable responses</li>
-                                            <li>Multilingual support</li>
-                                            <li>Seamless integration</li>
+                                            <li>${showData.features[1].feature_name}</li>
+                                            <li>${showData.features[2].feature_name}</li>
+                                            <li>${showData.features[3].feature_name}</li>
                                         </ol>
                                     </div>
                                     <div>
                                         <h1 class="card-title text-black font-bold">Integrations</h1>
                                         <ol class="text-gray-600 list-disc list-inside">
-                                            <li>FB Messenger</li>
-                                            <li>Slack</li>
-                                            <li>Telegram</li>
+                                            <li>${showData?.integrations[0]}</li>
+                                            <li>${showData?.integrations[1]}</li>
+                                            <li>${showData?.integrations[2]}</li>
                                         </ol>
                                     </div>
                                 </div>
@@ -158,27 +161,71 @@ const showSingleData = (modalData) => {
                             <figure class="px-10 pt-10">
 
                                 <div class="relative">
-                                    <img src="${modalData.image_link[0]}">
+                                    <img class="rounded-xl" src="${showData.image_link[0]}">
 
-                                    <h1 class="absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-red-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded">${modalData.accuracy.score} accuracy</h1>
-                                  </div>
+                                    <h1 class="absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-red-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded">${showData?.accuracy?.score} accuracy</h1>
+                                </div>
                                 
                             </figure>
 
                             <div class="card-body">
-                                <h2 class="card-title text-center font-bold">Hi, how are you doing today?
-                                </h2>
-                                <p class="text-center text-gray-600">I'm doing well, thank you for asking.
-                                    How can I assist you today?</p>
+                                <h2 class="card-title text-center font-bold">${showData?.input_output_examples[0]?.input}</h2>
+                                <p>${showData?.input_output_examples[0]?.output}</p>
+
+                                <h2 class="card-title text-center font-bold">${showData?.input_output_examples[1]?.input}</h2>
+                                <p>${showData?.input_output_examples[1].output}</p>
                             </div>
                         </div>
                     </div>
 
                 </div>
          
-
     `;
         container.appendChild(div);
         
-    
 };
+
+
+// See More Data
+const showAllDataTogether = () => {
+
+    fetch("https://openapi.programming-hero.com/api/ai/tools")
+        .then((res) => res.json())
+        .then((data) => {
+            showAllData(data.data.tools.slice(6, 12));
+        });
+    
+       const showAll = document.getElementById('show-all');
+        if(showAllData.length > 6) {
+            showAll.classList.remove('hidden');
+        }
+        else {
+            showAll.classList.add('hidden');
+        }
+
+};
+
+
+// Sort Cards By Date
+
+const sortDataByDate= (data) => {
+    data.sort((a, b) => new Date(b.published_in) - new Date(a.published_in));
+};
+    
+    const sortButton = document.getElementById('sort-button');
+    sortButton.addEventListener('click', () => {
+        
+        toggleProgress(true);
+        
+    fetch('https://openapi.programming-hero.com/api/ai/tools')
+    .then(res => res.json())
+    .then(data => {
+        sortDataByDate(data.data.tools)
+        displayData(data.data.tools);
+    })
+        
+    .catch(err => console.error(err))
+    .finally(() => {
+        toggleProgress (false);
+    });
+});
