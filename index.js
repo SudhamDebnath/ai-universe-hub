@@ -163,7 +163,9 @@ const showSingleData = (modalData) => {
                                 <div class="relative">
                                     <img class="rounded-xl" src="${showData.image_link[0]}">
 
-                                    <h1 class="absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-red-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded">${showData?.accuracy?.score} accuracy</h1>
+                                    <h1 class="bg-red-500 hover:bg-orange-400
+                                    ${showData.accuracy.score?"block rounded-lg p-1.5 font-semibold text-white absolute top-12 right-12 badge-error":"hidden"}
+                                    ">${showData.accuracy.score * 100 + "% accuracy"}</h1>
                                 </div>
                                 
                             </figure>
