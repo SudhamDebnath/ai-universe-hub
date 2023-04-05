@@ -81,17 +81,17 @@ const showDetails = (id) => {
         .then((res) => res.json())
         .then((data) => {
             
-            if (data !== null) {
-                const propertyValue = data.property?.nestedProperty ?? "default value";
-                console.log(propertyValue);
-            } else {
-                console.log("Data is null");
-            }
+            // if (data !== null) {
+            //     const propertyValue = data.property?.nestedProperty ?? "default value";
+            //     console.log(propertyValue);
+            // } else {
+            //     console.log("Data is null");
+            // }
             
-            showSingleData(data.data);
+            showSingleData(data.data ? data.data : "Not Available");
             
         })
-        .catch(error => console.error(error));
+        // .catch(error => console.error(error));
     };
 
 // showDetails();
@@ -127,13 +127,13 @@ const showSingleData = (modalData) => {
                                 <div class="grid grid-cols-3 gap-2">
                                     <div
                                         class="bg-base-100 rounded-xl text-center text-green-600 font-bold py-8">
-                                        ${showData?.pricing[0]?.plan} ${showData?.pricing[0]?.price}</div>
+                                        ${showData.pricing[0].plan ? showData.pricing[0].plan : "False"} ${showData.pricing[0].price? showData.pricing[0].plan : "False"}</div>
                                     <div
                                         class="bg-base-100 rounded-xl text-center text-orange-500 font-bold py-8">
-                                        ${showData?.pricing[1]?.plan} ${showData?.pricing[1]?.price}</div>
+                                        ${showData.pricing[1].plan ? showData.pricing[1].plan : "False"} ${showData.pricing[1].price ? showData.pricing[1].price : "False"}</div>
                                     <div
                                         class="bg-base-100 rounded-xl text-center text-red-600 font-bold py-8">
-                                        ${showData?.pricing[2]?.plan} ${showData?.pricing[2]?.price}</div>
+                                        ${showData.pricing[2].plan ? showData.pricing[2].plan : "False"} ${showData.pricing[2].price ? showData.pricing[2].price : "False"}</div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-6">
                                     <div>
@@ -210,24 +210,32 @@ const showAllDataTogether = () => {
 
 // Sort Cards By Date
 
-const sortDataByDate= (data) => {
-    data.sort((a, b) => new Date(b.published_in) - new Date(a.published_in));
-};
-    
-    const sortButton = document.getElementById('sort-button');
-    sortButton.addEventListener('click', () => {
-        
-        toggleProgress(true);
-        
+    document.getElementById('sort-button').addEventListener('click', () => {
+
+
     fetch('https://openapi.programming-hero.com/api/ai/tools')
     .then(res => res.json())
-    .then(data => {
+    .then((data) => {
+        console.log(data.data.tools[0]);
+
         sortDataByDate(data.data.tools)
-        displayData(data.data.tools);
-    })
         
-    .catch(err => console.error(err))
-    .finally(() => {
-        toggleProgress (false);
+    }) 
+        
+    // .catch(err => console.error(err))
+    // .finally(() => {
+    // });
+
+    
+    const sortDataByDate= (data) => {
+        data.sort((a, b) => {
+            console.log(data)
+            return Date(a.published_in) > Date(b.published_in) ? 1 : -1
+        });
+        // sortDataByDate(data);
+    };
+        
+        
+
     });
-});
+
